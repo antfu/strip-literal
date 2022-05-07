@@ -1,0 +1,82 @@
+// Vitest Snapshot v1
+
+exports[`escape character 1`] = `
+"'    '
+\\"    \\"
+\\"       \\"
+\\"        \\"
+\\"    \\"
+\\"               \\"
+'               '
+'     '
+'       '
+'         '
+\\"     \\"
+\\"       \\"
+\\"         \\""
+`;
+
+exports[`regexp affect 1`] = `
+"[
+  /'/,
+  ' ',
+  /\\"/,
+  \\" \\"
+]"
+`;
+
+exports[`strings comment nested 1`] = `
+"                    
+const a = \\"    \\"
+                    "
+`;
+
+exports[`strings comment nested 2`] = `
+"                    
+const a = \\"    \\"
+                    "
+`;
+
+exports[`strings comment nested 3`] = `
+"                    
+const a = \\"    \\"
+                    "
+`;
+
+exports[`strings comment nested 4`] = `
+"const a = \\"    \\"
+console.log(\\"       \\")"
+`;
+
+exports[`strings comment nested 5`] = `
+"const a = \\"    \\"
+console.log(\\"       \\")
+const b = \\"    \\""
+`;
+
+exports[`strings comment nested 6`] = `
+"const a = \\"    \\"
+console.log(\\"       \\")
+const b = \\"    \\""
+`;
+
+exports[`strings comment nested 7`] = `
+"const a = \\"    \\"
+console.log(\\"       \\")
+const b = \\"    \\""
+`;
+
+exports[`works 1`] = `
+"           
+const a = '    '
+              
+const b = \\"    \\"
+  
+             
+  
+                 
+                            
+const c = \`   \${a}\`
+
+let d = /re\\\\\\\\ge/g"
+`;
