@@ -1,6 +1,5 @@
 {
   "name": "strip-literal",
-  "type": "module",
   "version": "0.1.0",
   "packageManager": "pnpm@7.0.0",
   "description": "Strip comments and string literals from JavaScript code",
@@ -16,7 +15,7 @@
     "url": "git+https://github.com/antfu/strip-literal.git"
   },
   "funding": "https://github.com/sponsors/antfu",
-  "main": "./dist/index.mjs",
+  "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "exports": {
@@ -24,14 +23,6 @@
       "require": "./dist/index.cjs",
       "import": "./dist/index.mjs",
       "types": "./dist/index.d.ts"
-    }
-  },
-  "typesVersions": {
-    "*": {
-      "*": [
-        "./dist/*",
-        "./dist/index.d.ts"
-      ]
     }
   },
   "files": [
