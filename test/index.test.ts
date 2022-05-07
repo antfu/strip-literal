@@ -144,3 +144,39 @@ test('backtick escape', () => {
     this.error(\`  \`)"
   `)
 })
+
+test('forgiving', () => {
+  expect(stripLiteral(`
+<script type="module">
+  const rawModules = import.meta.globEager('/dir/*.json', {
+    as: 'raw'
+  })
+  const globraw = {}
+  Object.keys(rawModules).forEach((key) => {
+    globraw[key] = JSON.parse(rawModules[key])
+  })
+  document.querySelector('.globraw').textContent = JSON.stringify(
+    globraw,
+    null,
+    2
+  )
+</script>
+`, true)).toMatchInlineSnapshot(`
+  "
+  <script type=\\"      \\">
+    const rawModules = import.meta.globEager('           ', {
+      as: '   '
+    })
+    const globraw = {}
+    Object.keys(rawModules).forEach((key) => {
+      globraw[key] = JSON.parse(rawModules[key])
+    })
+    document.querySelector('        ').textContent = JSON.stringify(
+      globraw,
+      null,
+      2
+    )
+  <        
+  "
+`)
+})
