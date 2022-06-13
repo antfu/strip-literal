@@ -109,6 +109,14 @@ const b = "b \` "
   `)).toMatchSnapshot()
 })
 
+test('special char', () => {
+  expect(executeWithVerify(`
+function ssrRender(_ctx, _push, _parent, _attrs) {
+  _push(\`<div\${_ssrRenderAttrs(_mergeProps({ class: "text-sm" }, _attrs))}><a href="#" class="font-medium text-blue-600 hover:text-blue-500"> ¿Olvidaste tu contraseña? </a></div>\`)
+}
+  `)).toMatchSnapshot()
+})
+
 test('template string nested', () => {
   let str = '`aaaa`'
   expect(executeWithVerify(str)).toMatchInlineSnapshot('"`    `"')
