@@ -16,6 +16,32 @@ stripLiteral('const foo = `//foo ${bar}`') // 'const foo = `       ${bar}`'
 
 Comments, string literals will be replaced by spaces with the same length to keep the source map untouched.
 
+## Functions
+
+### `stripLiteralAcorn`
+
+Strip literal using [Acorn](https://github.com/acornjs/acorn)'s tokenizer.
+
+Will throw error if the input is not valid JavaScript.
+
+[Source](./src/acorn.ts)
+
+### `stripLiteralRegex`
+
+Strip literal using RegExp.
+
+This will be faster and can work on non-JavaScript input. But will have some caveats on distinguish strings and comments.
+
+[Source](./src/regex.ts)
+
+### `stripLiteral`
+
+Strip literal from code.
+
+Try to use `stripLiteralAcorn` first, and fallback to `stripLiteralRegex` if Acorn fails.
+
+[Source](./src/index.ts)
+
 ## Sponsors
 
 <p align="center">

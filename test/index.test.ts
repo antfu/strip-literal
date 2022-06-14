@@ -3,7 +3,7 @@ import { parse } from 'acorn'
 import { expect, test } from 'vitest'
 import { stripLiteral } from '../src'
 
-function executeWithVerify(code: string) {
+function executeWithVerify(code: string, verifyAst = true) {
   code = code.trim()
   const result = stripLiteral(code)
 
@@ -15,7 +15,8 @@ function executeWithVerify(code: string) {
   expect(result.length).toBe(code.length)
 
   // make sure no syntax errors
-  parse(result, { ecmaVersion: 'latest', sourceType: 'module' })
+  if (verifyAst)
+    parse(result, { ecmaVersion: 'latest', sourceType: 'module' })
 
   return result
 }
@@ -109,6 +110,13 @@ const b = "b \` "
   `)).toMatchSnapshot()
 })
 
+test('acorn syntax error', () => {
+  expect(executeWithVerify(`
+foo(\`fooo \${foo({ class: "foo" })} bar\`)
+  `, false))
+    .toMatchInlineSnapshot('"foo(`     \${foo({ class: \\"   \\" }      `)"')
+})
+
 test('template string nested', () => {
   let str = '`aaaa`'
   expect(executeWithVerify(str)).toMatchInlineSnapshot('"`    `"')
@@ -161,7 +169,7 @@ test('forgiving', () => {
     2
   )
 </script>
-`, true)).toMatchInlineSnapshot(`
+`)).toMatchInlineSnapshot(`
   "
   <script type=\\"      \\">
     const rawModules = import.meta.globEager('           ', {
@@ -176,7 +184,7 @@ test('forgiving', () => {
       null,
       2
     )
-  <        
+  </script>
   "
 `)
 })
