@@ -1,42 +1,17 @@
-import { tokenizer } from 'acorn'
+import { stripLiteralAcorn } from './acorn'
+import { stripLiteralRegex } from './regex'
 
-export function stripLiteral(code: string, forgiving = false) {
-  const FILL = ' '
-  let result = ''
-  function fulfill(index: number) {
-    if (index > result.length)
-      result += code.slice(result.length, index).replace(/[^\n]/g, FILL)
+/**
+ * Strip literal from code.
+ *
+ * Using Acorn's tokenizer first, and fallback to Regex if Acorn fails.
+ */
+export function stripLiteral(code: string) {
+  try {
+    return stripLiteralAcorn(code)
   }
-
-  const tokens = tokenizer(code, {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    allowHashBang: true,
-    allowAwaitOutsideFunction: true,
-    allowImportExportEverywhere: true,
-  })
-  const inter = tokens[Symbol.iterator]()
-
-  while (true) {
-    try {
-      const { done, value: token } = inter.next()
-      if (done)
-        break
-      fulfill(token.start)
-      if (token.type.label === 'string')
-        result += code[token.start] + FILL.repeat(token.end - token.start - 2) + code[token.end - 1]
-      else if (token.type.label === 'template')
-        result += FILL.repeat(token.end - token.start)
-      else
-        result += code.slice(token.start, token.end)
-    }
-    catch (e) {
-      if (!forgiving)
-        throw e
-    }
+  catch (e) {
+    return stripLiteralRegex(code)
   }
-
-  fulfill(code.length)
-
-  return result
 }
+
