@@ -1,6 +1,9 @@
 import { stripLiteralAcorn } from './acorn'
 import { stripLiteralRegex } from './regex'
 
+export { stripLiteralAcorn } from './acorn'
+export { stripLiteralRegex } from './regex'
+
 /**
  * Strip literal from code.
  *
