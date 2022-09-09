@@ -2,13 +2,19 @@ import { describe, bench } from 'vitest'
 import { stripLiteralAcorn, stripLiteralRegex } from '../src'
 import { readFile } from 'fs/promises'
 
-let code = await readFile('./node_modules/vue/dist/vue.runtime.global.js', 'utf-8')
+const modules = {
+  'vue-global': './node_modules/vue/dist/vue.runtime.global.js',
+  'three': './node_modules/three/build/three.module.js'
+}
 
-describe('bench', () => {
-  bench('regex', ()=>{
-    stripLiteralRegex(code)
-  })
-  bench('acorn', ()=>{
-    stripLiteralAcorn(code)
+Object.entries(modules).map(([name, path]) => {
+  describe('bench ' + name, async () => {
+    let code = await readFile(path, 'utf-8')
+    bench('regex', ()=>{
+      stripLiteralRegex(code)
+    })
+    bench('acorn', ()=>{
+      stripLiteralAcorn(code)
+    })
   })
 })

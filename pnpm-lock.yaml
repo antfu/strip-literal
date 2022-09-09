@@ -13,6 +13,7 @@ importers:
       esmo: ^0.16.3
       pnpm: ^7.11.0
       rimraf: ^3.0.2
+      three: ^0.144.0
       typescript: ^4.8.3
       unbuild: ^0.8.10
       vite: ^3.1.0
@@ -29,6 +30,7 @@ importers:
       esmo: 0.16.3
       pnpm: 7.11.0
       rimraf: 3.0.2
+      three: 0.144.0
       typescript: 4.8.3
       unbuild: 0.8.10
       vite: 3.1.0
@@ -3607,6 +3609,10 @@ packages:
 
   /text-table/0.2.0:
     resolution: {integrity: sha512-N+8UisAXDGk8PFXP4HAzVR9nbfmVJ3zYLAWiTIoqC5v5isinhr+r5uaO8+7r3BMfuNIufIsA7RdpVgacC2cSpw==}
+    dev: true
+
+  /three/0.144.0:
+    resolution: {integrity: sha512-R8AXPuqfjfRJKkYoTQcTK7A6i3AdO9++2n8ubya/GTU+fEHhYKu1ZooRSCPkx69jbnzT7dD/xEo6eROQTt2lJw==}
     dev: true
 
   /tinybench/2.1.5:
