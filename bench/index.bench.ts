@@ -1,6 +1,6 @@
 import { readFile } from 'fs/promises'
 import { bench, describe } from 'vitest'
-import { stripLiteralAcorn, stripLiteralRegex } from '../src'
+import { createIsLiteralPositionAcorn, stripLiteralAcorn, stripLiteralRegex } from '../src'
 
 const modules = {
   'vue-global': './node_modules/vue/dist/vue.runtime.global.js',
@@ -10,11 +10,14 @@ const modules = {
 Object.entries(modules).forEach(([name, path]) => {
   describe(`bench ${name}`, async () => {
     const code = await readFile(path, 'utf-8')
-    bench('regex', () => {
+    bench('stripLiteral (regex)', () => {
       stripLiteralRegex(code)
     })
-    bench('acorn', () => {
+    bench('stripLiteral (acorn)', () => {
       stripLiteralAcorn(code)
+    })
+    bench('createIsLiteralPositionAcorn (acorn)', () => {
+      createIsLiteralPositionAcorn(code)
     })
   })
 })

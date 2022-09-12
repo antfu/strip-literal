@@ -1,7 +1,7 @@
 import { stripLiteralAcorn } from './acorn'
 import { stripLiteralRegex } from './regex'
 
-export { stripLiteralAcorn } from './acorn'
+export { stripLiteralAcorn, createIsLiteralPositionAcorn } from './acorn'
 export { stripLiteralRegex } from './regex'
 
 /**
@@ -17,4 +17,3 @@ export function stripLiteral(code: string) {
     return stripLiteralRegex(code)
   }
 }
-

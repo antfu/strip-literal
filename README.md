@@ -42,6 +42,13 @@ Try to use `stripLiteralAcorn` first, and fallback to `stripLiteralRegex` if Aco
 
 [Source](./src/index.ts)
 
+### `createIsLiteralPositionAcorn`
+Returns a function that returns whether the position is in a literal using [Acorn](https://github.com/acornjs/acorn)'s tokenizer.
+
+Will throw error if the input is not valid JavaScript.
+
+[Source](./src/acorn.ts)
+
 ## Sponsors
 
 <p align="center">
