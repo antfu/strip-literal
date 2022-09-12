@@ -1,0 +1,50 @@
+// Vitest Snapshot v1
+
+exports[`template string nested 1`] = `"\`**\${a + \`*\`}**\`"`;
+
+exports[`works 1`] = `
+"
+const a = 0
+  "
+`;
+
+exports[`works 2`] = `
+"
+****
+const a = 0
+  "
+`;
+
+exports[`works 3`] = `
+"
+*******
+const a = 0
+  "
+`;
+
+exports[`works 4`] = `
+"
+**+
+***+
+**
+const a = 0
+  "
+`;
+
+exports[`works 5`] = `
+"
+const a = '*'
+  "
+`;
+
+exports[`works 6`] = `
+"
+const a = \\"*\\"
+  "
+`;
+
+exports[`works 7`] = `
+"
+const a = \`*\${b}\`
+  "
+`;
