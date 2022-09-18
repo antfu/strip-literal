@@ -188,3 +188,21 @@ test('forgiving', () => {
   "
 `)
 })
+
+test('// in string', () => {
+  const str = [
+    'const url= `http://www.xx.com`;',
+    'const url1= \'http://www.xx.com\';',
+    'onMounted(() => console.log(123))',
+    'const str = `hello world`',
+    '// Notes',
+  ].join('\n')
+
+  expect(executeWithVerify(str)).toMatchInlineSnapshot(`
+    "const url= \`                 \`;
+    const url1= \'                 \';
+    onMounted(() => console.log(123))
+    const str = \`           \`
+            "
+  `)
+})
