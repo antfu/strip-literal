@@ -209,7 +209,8 @@ test('// in string', () => {
 })
 
 test('#4', async () => {
-  const str = await fs.readFile('./test/fixtures/issue4.ts', 'utf-8')
+  const str = (await fs.readFile('./test/fixtures/issue4.ts', 'utf-8'))
+    .replace(/\r/g, '') // Windows EOL
   expect(executeWithVerify(str, false)).toMatchInlineSnapshot(`
     "import __variableDynamicImportRuntimeHelper from \\"                          \\";
     const getTestData = async () => {
