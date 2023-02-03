@@ -1,4 +1,5 @@
 /* eslint-disable no-template-curly-in-string */
+import fs from 'fs/promises'
 import { parse } from 'acorn'
 import { expect, test } from 'vitest'
 import { stripLiteral } from '../src'
@@ -204,5 +205,41 @@ test('// in string', () => {
     onMounted(() => console.log(123))
     const str = \`           \`
             "
+  `)
+})
+
+test('#4', async () => {
+  const str = await fs.readFile('./test/fixtures/issue4.ts', 'utf-8')
+  expect(executeWithVerify(str, false)).toMatchInlineSnapshot(`
+    "import __variableDynamicImportRuntimeHelper from \\"                          \\";
+    const getTestData = async () => {
+      const filename = \\"       \\";
+      console.log(await __variableDynamicImportRuntimeHelper((import.meta.glob(\\"                       \\")), \`                 \${filename}     \`));
+      console.log(await __variableDynamicImportRuntimeHelper((import.meta.glob(\\"                      \\")), \`                \${filename}     \`));
+    };
+
+    getTestData();
+    const _sfc_main = {};
+
+    import { mergeProps as _mergeProps } from \\"   \\"
+    import { ssrRenderAttrs as _ssrRenderAttrs, ssrInterpolate as _ssrInterpolate } from \\"                   \\"
+
+    function _sfc_ssrRender(_ctx, _push, _parent, _attrs, $props, $setup, $data, $options) {
+      _push(\`    \${
+        _ssrRenderAttrs(_mergeProps({ class: \\"        \\" }               \${
+        _ssrInterpolate(new Date())
+      }      \`)
+    }
+
+
+    import { useSSRContext as __vite_useSSRContext } from '   '
+    const _sfc_setup = _sfc_main.setup
+    _sfc_main.setup = (props, ctx) => {
+      const ssrContext = __vite_useSSRContext()
+      ;(ssrContext.modules || (ssrContext.modules = new Set())).add(\\"       \\")
+      return _sfc_setup ? _sfc_setup(props, ctx) : undefined
+    }
+    import _export_sfc from '                        '
+    export default              _export_sfc(_sfc_main, [['         ',_sfc_ssrRender],['      ',\\"                                                                               \\"]])"
   `)
 })
