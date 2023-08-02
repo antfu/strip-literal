@@ -13,11 +13,16 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
+      - name: Set git to use LF
+        run: |
+          git config --global core.autocrlf false
+          git config --global core.eol lf
+
       - uses: actions/checkout@v3
       - name: Set node
         uses: actions/setup-node@v3
         with:
-          node-version: 16.x
+          node-version: 20.x
 
       - name: Setup
         run: npm i -g @antfu/ni
@@ -35,7 +40,7 @@ jobs:
       - name: Set node
         uses: actions/setup-node@v3
         with:
-          node-version: 16.x
+          node-version: 20.x
 
       - name: Setup
         run: npm i -g @antfu/ni
@@ -51,7 +56,7 @@ jobs:
 
     strategy:
       matrix:
-        node: [14.x, 16.x]
+        node: [16.x, 20.x]
         os: [ubuntu-latest, windows-latest, macos-latest]
       fail-fast: false
 

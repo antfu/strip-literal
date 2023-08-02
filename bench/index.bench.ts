@@ -1,4 +1,4 @@
-import { readFile } from 'fs/promises'
+import { readFile } from 'node:fs/promises'
 import { bench, describe } from 'vitest'
 import { createIsLiteralPositionAcorn, stripLiteralAcorn, stripLiteralRegex } from '../src'
 
