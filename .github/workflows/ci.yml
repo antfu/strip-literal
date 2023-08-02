@@ -13,11 +13,6 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - name: Set git to use LF
-        run: |
-          git config --global core.autocrlf false
-          git config --global core.eol lf
-
       - uses: actions/checkout@v3
       - name: Set node
         uses: actions/setup-node@v3
@@ -52,15 +47,19 @@ jobs:
         run: nr typecheck
 
   test:
-    runs-on: ${{ matrix.os }}
-
     strategy:
       matrix:
         node: [16.x, 20.x]
         os: [ubuntu-latest, windows-latest, macos-latest]
       fail-fast: false
 
+    runs-on: ${{ matrix.os }}
+
     steps:
+      - name: Set git to use LF
+        run: |
+          git config --global core.autocrlf false
+          git config --global core.eol lf
       - uses: actions/checkout@v3
       - name: Set node ${{ matrix.node }}
         uses: actions/setup-node@v3
