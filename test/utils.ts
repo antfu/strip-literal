@@ -1,37 +1,26 @@
 import { parse } from 'acorn'
 import { expect } from 'vitest'
-import { stripLiteralAcorn, stripLiteralRegex } from '../src'
+import { stripLiteralDetailed } from '../src'
 
 export function executeWithVerify(code: string, verifyAst = true) {
   code = code.trim()
-  let result: string
-  let mode = 'acorn'
-  // let parseError: any
-  try {
-    result = stripLiteralAcorn(code)
-  }
-  catch (e) {
-    result = stripLiteralRegex(code)
-    mode = 'regex'
-    // parseError = e
-  }
+  const result = stripLiteralDetailed(code)
 
-  // if (verifyAst && parseError)
-  //   console.error(parseError)
+  // if (verifyAst && result.acorn.error)
+  //   console.error(result.acorn.error)
 
-  for (let i = 0; i < result.length; i++) {
-    if (!result[i].match(/\s/))
-      expect(result[i]).toBe(code[i])
+  const stripped = result.result
+
+  for (let i = 0; i < stripped.length; i++) {
+    if (!stripped[i].match(/\s/))
+      expect(stripped[i]).toBe(code[i])
   }
 
-  expect(result.length).toBe(code.length)
+  expect(stripped.length).toBe(code.length)
 
   // make sure no syntax errors
   if (verifyAst)
-    parse(result, { ecmaVersion: 'latest', sourceType: 'module' })
+    parse(stripped, { ecmaVersion: 'latest', sourceType: 'module' })
 
-  return {
-    code: result,
-    mode,
-  }
+  return `// mode: ${result.mode}\n${stripped}`
 }

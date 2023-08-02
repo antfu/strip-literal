@@ -96,68 +96,52 @@ test('acorn syntax error', () => {
 foo(\`fooo \${foo({ class: "foo" })} bar\`)
   `, false))
     .toMatchInlineSnapshot(`
-      {
-        "code": "foo(\`     \${foo({ class: \\"   \\" })}    \`)",
-        "mode": "regex",
-      }
+      "// mode: regex
+      foo(\`     \${foo({ class: \\"   \\" })}    \`)"
     `)
 })
 
 test('template string nested', () => {
   let str = '`aaaa`'
   expect(executeWithVerify(str)).toMatchInlineSnapshot(`
-    {
-      "code": "\`    \`",
-      "mode": "acorn",
-    }
+    "// mode: acorn
+    \`    \`"
   `)
 
   str = '`aaaa` `aaaa`'
   expect(executeWithVerify(str)).toMatchInlineSnapshot(`
-    {
-      "code": "\`    \` \`    \`",
-      "mode": "acorn",
-    }
+    "// mode: acorn
+    \`    \` \`    \`"
   `)
 
   str = '`aa${a}aa`'
   expect(executeWithVerify(str)).toMatchInlineSnapshot(`
-    {
-      "code": "\`  \${a}  \`",
-      "mode": "acorn",
-    }
+    "// mode: acorn
+    \`  \${a}  \`"
   `)
 
   str = '`aa${a + `a` + a}aa`'
   expect(executeWithVerify(str)).toMatchInlineSnapshot(`
-    {
-      "code": "\`  \${a + \` \` + a}  \`",
-      "mode": "acorn",
-    }
+    "// mode: acorn
+    \`  \${a + \` \` + a}  \`"
   `)
 
   str = '`aa${a + `a` + a}aa` `aa${a + `a` + a}aa`'
   expect(executeWithVerify(str)).toMatchInlineSnapshot(`
-    {
-      "code": "\`  \${a + \` \` + a}  \` \`  \${a + \` \` + a}  \`",
-      "mode": "acorn",
-    }
+    "// mode: acorn
+    \`  \${a + \` \` + a}  \` \`  \${a + \` \` + a}  \`"
   `)
 
   str = '`aa${a + `aaaa${c + (a = {b: 1}) + d}` + a}aa`'
   expect(executeWithVerify(str)).toMatchInlineSnapshot(`
-    {
-      "code": "\`  \${a + \`    \${c + (a = {b: 1}) + d}\` + a}  \`",
-      "mode": "acorn",
-    }
+    "// mode: acorn
+    \`  \${a + \`    \${c + (a = {b: 1}) + d}\` + a}  \`"
   `)
 
   str = '`aa${a + `aaaa${c + (a = {b: 1}) + d}` + a}aa` `aa${a + `aaaa${c + (a = {b: 1}) + d}` + a}aa`'
   expect(executeWithVerify(str)).toMatchInlineSnapshot(`
-    {
-      "code": "\`  \${a + \`    \${c + (a = {b: 1}) + d}\` + a}  \` \`  \${a + \`    \${c + (a = {b: 1}) + d}\` + a}  \`",
-      "mode": "acorn",
-    }
+    "// mode: acorn
+    \`  \${a + \`    \${c + (a = {b: 1}) + d}\` + a}  \` \`  \${a + \`    \${c + (a = {b: 1}) + d}\` + a}  \`"
   `)
 })
 
@@ -168,11 +152,9 @@ test('backtick escape', () => {
     'this.error(`\\``)',
   ].join('\n')
   expect(executeWithVerify(str)).toMatchInlineSnapshot(`
-    {
-      "code": "this.error(\`                                                          \`)
+    "// mode: acorn
+    this.error(\`                                                          \`)
     this.error(\`  \`)
-    this.error(\`  \`)",
-      "mode": "acorn",
-    }
+    this.error(\`  \`)"
   `)
 })

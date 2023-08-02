@@ -1,8 +1,8 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`escape character 1`] = `
-{
-  "code": "'    '
+"// mode: acorn
+'    '
 \\"    \\"
 \\"       \\"
 \\"        \\"
@@ -14,88 +14,70 @@ exports[`escape character 1`] = `
 '         '
 \\"     \\"
 \\"       \\"
-\\"         \\"",
-  "mode": "acorn",
-}
+\\"         \\""
 `;
 
 exports[`regexp affect 1`] = `
-{
-  "code": "[
-  /'/,
+"// mode: acorn
+[
+  / /,
   ' ',
-  /\\"/,
+  / /,
   \\" \\"
-]",
-  "mode": "acorn",
-}
+]"
 `;
 
 exports[`strings comment nested 1`] = `
-{
-  "code": "                    
+"// mode: acorn
+                    
 const a = \\"    \\"
-                    ",
-  "mode": "acorn",
-}
+                    "
 `;
 
 exports[`strings comment nested 2`] = `
-{
-  "code": "                    
+"// mode: acorn
+                    
 const a = \\"    \\"
-                    ",
-  "mode": "acorn",
-}
+                    "
 `;
 
 exports[`strings comment nested 3`] = `
-{
-  "code": "                    
+"// mode: acorn
+                    
 const a = \\"    \\"
-                    ",
-  "mode": "acorn",
-}
+                    "
 `;
 
 exports[`strings comment nested 4`] = `
-{
-  "code": "const a = \\"    \\"
-console.log(\\"       \\")",
-  "mode": "acorn",
-}
+"// mode: acorn
+const a = \\"    \\"
+console.log(\\"       \\")"
 `;
 
 exports[`strings comment nested 5`] = `
-{
-  "code": "const a = \\"    \\"
+"// mode: acorn
+const a = \\"    \\"
 console.log(\\"       \\")
-const b = \\"    \\"",
-  "mode": "acorn",
-}
+const b = \\"    \\""
 `;
 
 exports[`strings comment nested 6`] = `
-{
-  "code": "const a = \\"    \\"
+"// mode: acorn
+const a = \\"    \\"
 console.log(\\"       \\")
-const b = \\"    \\"",
-  "mode": "acorn",
-}
+const b = \\"    \\""
 `;
 
 exports[`strings comment nested 7`] = `
-{
-  "code": "const a = \\"    \\"
+"// mode: acorn
+const a = \\"    \\"
 console.log(\\"       \\")
-const b = \\"    \\"",
-  "mode": "acorn",
-}
+const b = \\"    \\""
 `;
 
 exports[`works 1`] = `
-{
-  "code": "           
+"// mode: acorn
+           
 const a = '    '
               
 const b = \\"    \\"
@@ -106,7 +88,5 @@ const b = \\"    \\"
                             
 const c = \`   \${a}\`
 
-let d = /re\\\\\\\\ge/g",
-  "mode": "acorn",
-}
+let d = /      /g"
 `;

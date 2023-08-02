@@ -1,11 +1,12 @@
 import { tokenizer } from 'acorn'
+import type { Parser, Token } from 'acorn'
 
 /**
  * Strip literal using Acorn's tokenizer.
  *
  * Will throw error if the input is not valid JavaScript.
  */
-export function stripLiteralAcorn(code: string) {
+export function _stripLiteralAcorn(code: string) {
   const FILL = ' '
   let result = ''
   function fulfill(index: number) {
@@ -13,31 +14,57 @@ export function stripLiteralAcorn(code: string) {
       result += code.slice(result.length, index).replace(/[^\n]/g, FILL)
   }
 
-  const tokens = tokenizer(code, {
+  const tokens: Token[] = []
+  const pasers = tokenizer(code, {
     ecmaVersion: 'latest',
     sourceType: 'module',
     allowHashBang: true,
     allowAwaitOutsideFunction: true,
     allowImportExportEverywhere: true,
-  })
-  const inter = tokens[Symbol.iterator]()
+  }) as Parser & ReturnType<typeof tokenizer>
+  const iter = pasers[Symbol.iterator]()
 
-  while (true) {
-    const { done, value: token } = inter.next()
-    if (done)
-      break
-    fulfill(token.start)
-    if (token.type.label === 'string')
-      result += code[token.start] + FILL.repeat(token.end - token.start - 2) + code[token.end - 1]
-    else if (token.type.label === 'template')
-      result += FILL.repeat(token.end - token.start)
-    else
-      result += code.slice(token.start, token.end)
+  let error: any
+  try {
+    while (true) {
+      const { done, value: token } = iter.next()
+      if (done)
+        break
+      tokens.push(token)
+      fulfill(token.start)
+      if (token.type.label === 'string')
+        result += code[token.start] + FILL.repeat(token.end - token.start - 2) + code[token.end - 1]
+      else if (token.type.label === 'template')
+        result += FILL.repeat(token.end - token.start)
+      else if (token.type.label === 'regexp')
+        result += code.slice(token.start, token.end).replace(/\/(.*)\/(\w?)$/g, (_, $1, $2) => `/${FILL.repeat($1.length)}/${$2}`)
+      else
+        result += code.slice(token.start, token.end)
+    }
+
+    fulfill(code.length)
+  }
+  catch (e) {
+    error = e
   }
 
-  fulfill(code.length)
+  return {
+    error,
+    result,
+    tokens,
+  }
+}
 
-  return result
+/**
+ * Strip literal using Acorn's tokenizer.
+ *
+ * Will throw error if the input is not valid JavaScript.
+ */
+export function stripLiteralAcorn(code: string) {
+  const result = _stripLiteralAcorn(code)
+  if (result.error)
+    throw result.error
+  return result.result
 }
 
 /**
