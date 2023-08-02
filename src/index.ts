@@ -1,16 +1,18 @@
 import { _stripLiteralAcorn } from './acorn'
 import { stripLiteralRegex } from './regex'
+import type { StripLiteralOptions } from './types'
 
 export { stripLiteralAcorn, createIsLiteralPositionAcorn } from './acorn'
 export { stripLiteralRegex } from './regex'
+export * from './types'
 
 /**
  * Strip literal from code.
  *
  * Using Acorn's tokenizer first, and fallback to Regex if Acorn fails.
  */
-export function stripLiteral(code: string) {
-  return stripLiteralDetailed(code).result
+export function stripLiteral(code: string, options?: StripLiteralOptions) {
+  return stripLiteralDetailed(code, options).result
 }
 
 /**
@@ -18,7 +20,7 @@ export function stripLiteral(code: string) {
  *
  * Using Acorn's tokenizer first, and fallback to Regex if Acorn fails.
  */
-export function stripLiteralDetailed(code: string): {
+export function stripLiteralDetailed(code: string, options?: StripLiteralOptions): {
   mode: 'acorn' | 'regex'
   result: string
   acorn: {
@@ -26,7 +28,7 @@ export function stripLiteralDetailed(code: string): {
     error?: any
   }
 } {
-  const acorn = _stripLiteralAcorn(code)
+  const acorn = _stripLiteralAcorn(code, options)
   if (!acorn.error) {
     return {
       mode: 'acorn',
@@ -36,7 +38,7 @@ export function stripLiteralDetailed(code: string): {
   }
   return {
     mode: 'regex',
-    result: stripLiteralRegex(acorn.result + code.slice(acorn.result.length)),
+    result: stripLiteralRegex(acorn.result + code.slice(acorn.result.length), options),
     acorn,
   }
 }

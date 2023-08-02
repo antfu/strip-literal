@@ -1,10 +1,11 @@
 import { parse } from 'acorn'
 import { expect } from 'vitest'
+import type { StripLiteralOptions } from '../src'
 import { stripLiteralDetailed } from '../src'
 
-export function executeWithVerify(code: string, verifyAst = true) {
+export function executeWithVerify(code: string, verifyAst = true, options?: StripLiteralOptions) {
   code = code.trim()
-  const result = stripLiteralDetailed(code)
+  const result = stripLiteralDetailed(code, options)
 
   // if (verifyAst && result.acorn.error)
   //   console.error(result.acorn.error)

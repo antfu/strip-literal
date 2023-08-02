@@ -1,15 +1,19 @@
 import { tokenizer } from 'acorn'
 import type { Parser, Token } from 'acorn'
+import type { StripLiteralOptions } from './types'
 
 /**
  * Strip literal using Acorn's tokenizer.
  *
  * Will throw error if the input is not valid JavaScript.
  */
-export function _stripLiteralAcorn(code: string) {
+export function _stripLiteralAcorn(code: string, options?: StripLiteralOptions) {
   const FILL = ' '
   let result = ''
-  function fulfill(index: number) {
+
+  const filter = options?.filter ?? (() => true)
+
+  function fillupTo(index: number) {
     if (index > result.length)
       result += code.slice(result.length, index).replace(/[^\n]/g, FILL)
   }
@@ -30,19 +34,38 @@ export function _stripLiteralAcorn(code: string) {
       const { done, value: token } = iter.next()
       if (done)
         break
+
       tokens.push(token)
-      fulfill(token.start)
-      if (token.type.label === 'string')
-        result += code[token.start] + FILL.repeat(token.end - token.start - 2) + code[token.end - 1]
-      else if (token.type.label === 'template')
-        result += FILL.repeat(token.end - token.start)
-      else if (token.type.label === 'regexp')
-        result += code.slice(token.start, token.end).replace(/\/(.*)\/(\w?)$/g, (_, $1, $2) => `/${FILL.repeat($1.length)}/${$2}`)
-      else
-        result += code.slice(token.start, token.end)
+      fillupTo(token.start)
+
+      if (token.type.label === 'string') {
+        const body = code.slice(token.start + 1, token.end - 1)
+        if (filter(body)) {
+          result += code[token.start] + FILL.repeat(token.end - token.start - 2) + code[token.end - 1]
+          continue
+        }
+      }
+
+      else if (token.type.label === 'template') {
+        const body = code.slice(token.start, token.end)
+        if (filter(body)) {
+          result += FILL.repeat(token.end - token.start)
+          continue
+        }
+      }
+
+      else if (token.type.label === 'regexp') {
+        const body = code.slice(token.start, token.end)
+        if (filter(body)) {
+          result += body.replace(/\/(.*)\/(\w?)$/g, (_, $1, $2) => `/${FILL.repeat($1.length)}/${$2}`)
+          continue
+        }
+      }
+
+      result += code.slice(token.start, token.end)
     }
 
-    fulfill(code.length)
+    fillupTo(code.length)
   }
   catch (e) {
     error = e
@@ -60,8 +83,8 @@ export function _stripLiteralAcorn(code: string) {
  *
  * Will throw error if the input is not valid JavaScript.
  */
-export function stripLiteralAcorn(code: string) {
-  const result = _stripLiteralAcorn(code)
+export function stripLiteralAcorn(code: string, options?: StripLiteralOptions) {
+  const result = _stripLiteralAcorn(code, options)
   if (result.error)
     throw result.error
   return result.result
