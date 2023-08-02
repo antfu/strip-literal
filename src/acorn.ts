@@ -31,7 +31,6 @@ export function stripLiteralAcorn(code: string) {
       result += code[token.start] + FILL.repeat(token.end - token.start - 2) + code[token.end - 1]
     else if (token.type.label === 'template')
       result += FILL.repeat(token.end - token.start)
-
     else
       result += code.slice(token.start, token.end)
   }

@@ -5,9 +5,7 @@ import { createIsLiteralPositionAcorn } from '../src'
 function execute(code: string) {
   const isLiteralPosition = createIsLiteralPositionAcorn(code)
 
-  const positions = new Array(code.length)
-    .fill(0)
-    .map((_, i) => i)
+  const positions = Array.from({ length: code.length }, (_, i) => i)
   const result = positions
     .map((pos) => {
       if (code[pos] === '\n')

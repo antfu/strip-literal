@@ -1,6 +1,6 @@
 const multilineCommentsRE = /\/\*([^*\/])*?\*\//gms
 const singlelineCommentsRE = /(?:^|\n|\r)\s*\/\/.*(?:\r|\n|$)/gm
-const templateLiteralRE = /\$\{(\s*(?:(?!\$\{).|\n|\r)*?\s*)\}/g
+const templateLiteralRE = /\$\{(\s*(?:|{.*}|(?!\$\{).|\n|\r)*?\s*)\}/g
 const quotesRE = [
   /(["'`])((?:\\\1|(?!\1)|.|\r)*?)\1/gm,
   /([`])((?:\\\1|(?!\1)|.|\n|\r)*?)\1/gm, // multi-line strings (i.e. template literals only)
