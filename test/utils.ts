@@ -12,9 +12,11 @@ export function executeWithVerify(code: string, verifyAst = true, options?: Stri
 
   const stripped = result.result
 
-  for (let i = 0; i < stripped.length; i++) {
-    if (!stripped[i].match(/\s/))
-      expect(stripped[i]).toBe(code[i])
+  if (!options?.fillChar) {
+    for (let i = 0; i < stripped.length; i++) {
+      if (!stripped[i].match(/\s/))
+        expect(stripped[i]).toBe(code[i])
+    }
   }
 
   expect(stripped.length).toBe(code.length)

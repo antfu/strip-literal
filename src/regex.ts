@@ -15,11 +15,13 @@ const quotesRE = [
  * But will have some caveats on distinguish strings and comments.
  */
 export function stripLiteralRegex(code: string, options?: StripLiteralOptions) {
+  const FILL_COMMENT = ' '
+  const FILL = options?.fillChar ?? ' '
   const filter = options?.filter ?? (() => true)
 
   code = code
-    .replace(multilineCommentsRE, s => filter(s) ? ' '.repeat(s.length) : s)
-    .replace(singlelineCommentsRE, s => filter(s) ? ' '.repeat(s.length) : s)
+    .replace(multilineCommentsRE, s => filter(s) ? FILL_COMMENT.repeat(s.length) : s)
+    .replace(singlelineCommentsRE, s => filter(s) ? FILL_COMMENT.repeat(s.length) : s)
 
   let expanded = code
   // Recursively replace ${} to support nested constructs (e.g. ${`${x}`})
@@ -35,8 +37,8 @@ export function stripLiteralRegex(code: string, options?: StripLiteralOptions) {
       .replace(re, (s, quote, body, index) => {
         if (!filter(s.slice(1, -1)))
           return s
-        code = code.slice(0, index + 1) + ' '.repeat(s.length - 2) + code.slice(index + s.length - 1)
-        return quote + ' '.repeat(s.length - 2) + quote
+        code = code.slice(0, index + 1) + FILL.repeat(s.length - 2) + code.slice(index + s.length - 1)
+        return quote + FILL.repeat(s.length - 2) + quote
       })
   })
 

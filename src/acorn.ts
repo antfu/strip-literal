@@ -8,14 +8,15 @@ import type { StripLiteralOptions } from './types'
  * Will throw error if the input is not valid JavaScript.
  */
 export function _stripLiteralAcorn(code: string, options?: StripLiteralOptions) {
-  const FILL = ' '
+  const FILL = options?.fillChar ?? ' '
+  const FILL_COMMENT = ' '
   let result = ''
 
   const filter = options?.filter ?? (() => true)
 
   function fillupTo(index: number) {
     if (index > result.length)
-      result += code.slice(result.length, index).replace(/[^\n]/g, FILL)
+      result += code.slice(result.length, index).replace(/[^\n]/g, FILL_COMMENT)
   }
 
   const tokens: Token[] = []
