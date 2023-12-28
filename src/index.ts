@@ -1,4 +1,5 @@
 import { _stripLiteralAcorn } from './acorn'
+import { _stripLiteralJsTokens } from './js-tokens'
 import { stripLiteralRegex } from './regex'
 import type { StripLiteralOptions } from './types'
 
@@ -28,7 +29,7 @@ export function stripLiteralDetailed(code: string, options?: StripLiteralOptions
     error?: any
   }
 } {
-  const acorn = _stripLiteralAcorn(code, options)
+  const acorn = _stripLiteralJsTokens(code, options)
   if (!acorn.error) {
     return {
       mode: 'acorn',

@@ -1,4 +1,4 @@
-// mode: regex
+// mode: acorn
 <script type="      ">
   const rawModules = import.meta.globEager('           ', {
     as: '   '

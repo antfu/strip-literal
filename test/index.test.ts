@@ -96,8 +96,8 @@ test('acorn syntax error', () => {
 foo(\`fooo \${foo({ class: "foo" })} bar\`)
   `, false))
     .toMatchInlineSnapshot(`
-      "// mode: regex
-      foo(\`     \${foo({ class: \\"   \\" })}    \`)"
+      "// mode: acorn
+      foo(\`     \${foo({ class: "   " })}    \`)"
     `)
 })
 

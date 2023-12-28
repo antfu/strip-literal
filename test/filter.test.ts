@@ -25,7 +25,7 @@ const c = \`aaaa\${foo}dddd\${bar}\`
                  
       const a = 'aaaa'
                     
-      const b = \\"    \\"
+      const b = "    "
 
       const c = \`aaaa\${foo}    \${bar}\`"
     `)
