@@ -10,57 +10,68 @@ export function _stripLiteralJsTokens(code: string, options?: StripLiteralOption
 
   const tokens: JSToken[] = []
 
-  const factories: Partial<Record<JSToken['type'], [(value: string) => string, (body: string, token: JSToken) => string, boolean?]>> = {
-    StringLiteral: [
-      token => token.slice(1, -1),
-      (body, token) => token.value[0] + FILL.repeat(body.length) + token.value[token.value.length - 1],
-    ],
-    SingleLineComment: [
-      token => token,
-      body => FILL_COMMENT.repeat(body.length),
-      true,
-    ],
-    MultiLineComment: [
-      token => token,
-      body => body.replace(/[^\n]/g, FILL_COMMENT),
-      true,
-    ],
-    RegularExpressionLiteral: [
-      token => token,
-      body => body.replace(/\/(.*)\/(\w?)$/g, (_, $1, $2) => `/${FILL.repeat($1.length)}/${$2}`),
-    ],
-    // `start${
-    TemplateHead: [
-      token => token.slice(1, -2),
-      body => `\`${FILL.repeat(body.length)}\${`,
-    ],
-    // }end`
-    TemplateTail: [
-      token => token.slice(0, -2),
-      body => `}${FILL.repeat(body.length)}\``,
-    ],
-    // }middle${
-    TemplateMiddle: [
-      token => token.slice(1, -2),
-      body => `}${FILL.repeat(body.length)}\${`,
-    ],
-    NoSubstitutionTemplate: [
-      token => token.slice(1, -1),
-      body => `\`${FILL.repeat(body.length)}\``,
-    ],
-  }
-
   let error: any
   try {
     for (const token of jsTokens(code, { jsx: false })) {
       tokens.push(token)
 
-      const factory = factories[token.type]
-      if (factory) {
-        const [getBody, getReplacement, skipFilter] = factory
-        const body = getBody(token.value)
-        if (skipFilter || filter(body)) {
-          result += getReplacement(body, token)
+      if (token.type === 'SingleLineComment') {
+        result += FILL_COMMENT.repeat(token.value.length)
+        continue
+      }
+
+      if (token.type === 'MultiLineComment') {
+        result += token.value.replace(/[^\n]/g, FILL_COMMENT)
+        continue
+      }
+
+      if (token.type === 'StringLiteral') {
+        const body = token.value.slice(1, -1)
+        if (filter(body)) {
+          result += token.value[0] + FILL.repeat(body.length) + token.value[token.value.length - 1]
+          continue
+        }
+      }
+
+      if (token.type === 'NoSubstitutionTemplate') {
+        const body = token.value.slice(1, -1)
+        if (filter(body)) {
+          result += `\`${body.replace(/[^\n]/g, FILL_COMMENT)}\``
+          continue
+        }
+      }
+
+      if (token.type === 'RegularExpressionLiteral') {
+        const body = token.value
+        if (filter(body)) {
+          result += body.replace(/\/(.*)\/(\w?)$/g, (_, $1, $2) => `/${FILL.repeat($1.length)}/${$2}`)
+          continue
+        }
+      }
+
+      // `start${
+      if (token.type === 'TemplateHead') {
+        const body = token.value.slice(1, -2)
+        if (filter(body)) {
+          result += `\`${body.replace(/[^\n]/g, FILL_COMMENT)}\${`
+          continue
+        }
+      }
+
+      // }end`
+      if (token.type === 'TemplateTail') {
+        const body = token.value.slice(0, -2)
+        if (filter(body)) {
+          result += `}${body.replace(/[^\n]/g, FILL_COMMENT)}\``
+          continue
+        }
+      }
+
+      // }middle${
+      if (token.type === 'TemplateMiddle') {
+        const body = token.value.slice(1, -2)
+        if (filter(body)) {
+          result += `}${body.replace(/[^\n]/g, FILL_COMMENT)}\${`
           continue
         }
       }

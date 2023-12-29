@@ -91,6 +91,18 @@ const b = "b \` "
   `)).toMatchSnapshot()
 })
 
+it('multiline string', () => {
+  expect(executeWithVerify(`
+const a = \`
+
+  some text
+
+message
+
+\`
+  `)).toMatchSnapshot()
+})
+
 it('acorn syntax error', () => {
   expect(executeWithVerify(`
 foo(\`fooo \${foo({ class: "foo" })} bar\`)
