@@ -106,55 +106,31 @@ message
 it('acorn syntax error', () => {
   expect(executeWithVerify(`
 foo(\`fooo \${foo({ class: "foo" })} bar\`)
-  `, false))
-    .toMatchInlineSnapshot(`
-      "// mode: js-tokens
-      foo(\`     \${foo({ class: "   " })}    \`)"
-    `)
+  `))
+    .toMatchInlineSnapshot(`"foo(\`     \${foo({ class: "   " })}    \`)"`)
 })
 
 it('template string nested', () => {
   let str = '`aaaa`'
-  expect(executeWithVerify(str)).toMatchInlineSnapshot(`
-    "// mode: js-tokens
-    \`    \`"
-  `)
+  expect(executeWithVerify(str)).toMatchInlineSnapshot(`"\`    \`"`)
 
   str = '`aaaa` `aaaa`'
-  expect(executeWithVerify(str)).toMatchInlineSnapshot(`
-    "// mode: js-tokens
-    \`    \` \`    \`"
-  `)
+  expect(executeWithVerify(str)).toMatchInlineSnapshot(`"\`    \` \`    \`"`)
 
   str = '`aa${a}aa`'
-  expect(executeWithVerify(str)).toMatchInlineSnapshot(`
-    "// mode: js-tokens
-    \`  \${a}  \`"
-  `)
+  expect(executeWithVerify(str)).toMatchInlineSnapshot(`"\`  \${a}  \`"`)
 
   str = '`aa${a + `a` + a}aa`'
-  expect(executeWithVerify(str)).toMatchInlineSnapshot(`
-    "// mode: js-tokens
-    \`  \${a + \` \` + a}  \`"
-  `)
+  expect(executeWithVerify(str)).toMatchInlineSnapshot(`"\`  \${a + \` \` + a}  \`"`)
 
   str = '`aa${a + `a` + a}aa` `aa${a + `a` + a}aa`'
-  expect(executeWithVerify(str)).toMatchInlineSnapshot(`
-    "// mode: js-tokens
-    \`  \${a + \` \` + a}  \` \`  \${a + \` \` + a}  \`"
-  `)
+  expect(executeWithVerify(str)).toMatchInlineSnapshot(`"\`  \${a + \` \` + a}  \` \`  \${a + \` \` + a}  \`"`)
 
   str = '`aa${a + `aaaa${c + (a = {b: 1}) + d}` + a}aa`'
-  expect(executeWithVerify(str)).toMatchInlineSnapshot(`
-    "// mode: js-tokens
-    \`  \${a + \`    \${c + (a = {b: 1}) + d}\` + a}  \`"
-  `)
+  expect(executeWithVerify(str)).toMatchInlineSnapshot(`"\`  \${a + \`    \${c + (a = {b: 1}) + d}\` + a}  \`"`)
 
   str = '`aa${a + `aaaa${c + (a = {b: 1}) + d}` + a}aa` `aa${a + `aaaa${c + (a = {b: 1}) + d}` + a}aa`'
-  expect(executeWithVerify(str)).toMatchInlineSnapshot(`
-    "// mode: js-tokens
-    \`  \${a + \`    \${c + (a = {b: 1}) + d}\` + a}  \` \`  \${a + \`    \${c + (a = {b: 1}) + d}\` + a}  \`"
-  `)
+  expect(executeWithVerify(str)).toMatchInlineSnapshot(`"\`  \${a + \`    \${c + (a = {b: 1}) + d}\` + a}  \` \`  \${a + \`    \${c + (a = {b: 1}) + d}\` + a}  \`"`)
 })
 
 it('backtick escape', () => {
@@ -164,8 +140,7 @@ it('backtick escape', () => {
     'this.error(`\\``)',
   ].join('\n')
   expect(executeWithVerify(str)).toMatchInlineSnapshot(`
-    "// mode: js-tokens
-    this.error(\`                                                          \`)
+    "this.error(\`                                                          \`)
     this.error(\`  \`)
     this.error(\`  \`)"
   `)

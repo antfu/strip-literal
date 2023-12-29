@@ -1,4 +1,3 @@
-// mode: js-tokens
               
 var r = / /;
 foobar(`${foo({ class: "   " })}`);

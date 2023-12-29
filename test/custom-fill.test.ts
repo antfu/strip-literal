@@ -12,7 +12,6 @@ const b = "bbbb"
 
 const c = \`aaaa\${foo}dddd\${bar}\`
       `.trim(),
-      false,
       {
         fillChar: '-',
         filter: s => s !== 'aaaa',
@@ -20,8 +19,7 @@ const c = \`aaaa\${foo}dddd\${bar}\`
     )
 
     expect(result).toMatchInlineSnapshot(`
-      "// mode: js-tokens
-                 
+      "           
       const a = 'aaaa'
                     
       const b = "----"

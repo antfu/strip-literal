@@ -1,4 +1,3 @@
-// mode: js-tokens
 import __variableDynamicImportRuntimeHelper from "                          ";
 const getTestData = async () => {
   const filename = "       ";

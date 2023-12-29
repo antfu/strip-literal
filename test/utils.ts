@@ -1,9 +1,8 @@
-import { parse } from 'acorn'
 import { expect } from 'vitest'
 import type { StripLiteralOptions } from '../src'
 import { stripLiteralDetailed } from '../src'
 
-export function executeWithVerify(code: string, verifyAst = true, options?: StripLiteralOptions) {
+export function executeWithVerify(code: string, options?: StripLiteralOptions) {
   code = code.trim()
   const result = stripLiteralDetailed(code, options)
 
@@ -21,9 +20,5 @@ export function executeWithVerify(code: string, verifyAst = true, options?: Stri
 
   expect(stripped.length).toBe(code.length)
 
-  // make sure no syntax errors
-  if (verifyAst)
-    parse(stripped, { ecmaVersion: 'latest', sourceType: 'module' })
-
-  return `// mode: ${result.mode}\n${stripped}`
+  return stripped
 }

@@ -13,7 +13,6 @@ const b = "bbbb"
 
 const c = \`aaaa\${foo}dddd\${bar}\`
       `.trim(),
-      true,
       {
         filter: (s) => {
           items.push(s)
@@ -23,8 +22,7 @@ const c = \`aaaa\${foo}dddd\${bar}\`
     )
 
     expect(result).toMatchInlineSnapshot(`
-      "// mode: js-tokens
-                 
+      "           
       const a = 'aaaa'
                     
       const b = "    "

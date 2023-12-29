@@ -41,7 +41,6 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "acorn": "^8.11.2",
     "js-tokens": "^8.0.2"
   },
   "devDependencies": {

@@ -1,4 +1,3 @@
-// mode: js-tokens
 <script type="      ">
   const rawModules = import.meta.globEager('           ', {
     as: '   '
