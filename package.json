@@ -41,7 +41,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "acorn": "^8.11.2"
+    "acorn": "^8.11.2",
+    "js-tokens": "^8.0.2"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.6.1",
@@ -50,7 +51,6 @@
     "bumpp": "^9.2.1",
     "eslint": "^8.56.0",
     "esmo": "^4.0.0",
-    "js-tokens": "^8.0.2",
     "pnpm": "^8.13.1",
     "rimraf": "^5.0.5",
     "three": "^0.160.0",
