@@ -1,8 +1,8 @@
 /* eslint-disable no-template-curly-in-string */
-import { expect, test } from 'vitest'
+import { expect, it } from 'vitest'
 import { executeWithVerify } from './utils'
 
-test('works', () => {
+it('works', () => {
   expect(executeWithVerify(`
 // comment1
 const a = 'aaaa'
@@ -19,7 +19,7 @@ let d = /re\\\\ge/g
     `)).toMatchSnapshot()
 })
 
-test('escape character', () => {
+it('escape character', () => {
   expect(executeWithVerify(`
 '1\\'1'
 "1\\"1"
@@ -37,7 +37,7 @@ test('escape character', () => {
   `)).toMatchSnapshot()
 })
 
-test('regexp affect', () => {
+it('regexp affect', () => {
   expect(executeWithVerify(`
 [
   /'/,
@@ -48,7 +48,7 @@ test('regexp affect', () => {
   `)).toMatchSnapshot()
 })
 
-test('strings comment nested', () => {
+it('strings comment nested', () => {
   expect(executeWithVerify(`
 // comment 1 /* " */
 const a = "a //"
@@ -91,17 +91,17 @@ const b = "b \` "
   `)).toMatchSnapshot()
 })
 
-test('acorn syntax error', () => {
+it('acorn syntax error', () => {
   expect(executeWithVerify(`
 foo(\`fooo \${foo({ class: "foo" })} bar\`)
   `, false))
     .toMatchInlineSnapshot(`
-      "// mode: regex
-      foo(\`     \${foo({ class: \\"   \\" })}    \`)"
+      "// mode: acorn
+      foo(\`     \${foo({ class: "   " })}    \`)"
     `)
 })
 
-test('template string nested', () => {
+it('template string nested', () => {
   let str = '`aaaa`'
   expect(executeWithVerify(str)).toMatchInlineSnapshot(`
     "// mode: acorn
@@ -145,7 +145,7 @@ test('template string nested', () => {
   `)
 })
 
-test('backtick escape', () => {
+it('backtick escape', () => {
   const str = [
     'this.error(`\\`new URL(url, import.meta.url)\\` is not supported in SSR.`)',
     'this.error(`\\\\`)',

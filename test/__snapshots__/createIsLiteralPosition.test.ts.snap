@@ -39,7 +39,7 @@ const a = '*'
 
 exports[`works 6`] = `
 "
-const a = \\"*\\"
+const a = "*"
   "
 `;
 

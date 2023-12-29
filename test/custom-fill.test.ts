@@ -10,9 +10,7 @@ const a = 'aaaa'
 const b = "bbbb"
 
 const c = \`aaaa\${foo}dddd\${bar}\`
-      `.trim(),
-    false,
-    {
+      `.trim(), false, {
       fillChar: '-',
       filter: s => s !== 'aaaa',
     })
@@ -22,7 +20,7 @@ const c = \`aaaa\${foo}dddd\${bar}\`
                  
       const a = 'aaaa'
                     
-      const b = \\"----\\"
+      const b = "----"
 
       const c = \`aaaa\${foo}----\${bar}\`"
     `)
@@ -37,18 +35,16 @@ const a = 'aaaa'
 const b = "bbbb"
 
 const c = \`aaaa\${foo}dddd\${bar}\`
-      `.trim(),
-    false,
-    {
+      `.trim(), false, {
       fillChar: '-',
       filter: s => s !== 'aaaa',
     })
 
     expect(result).toMatchInlineSnapshot(`
       "// mode: regex
-      \\\\             const a = 'aaaa'
+      \\             const a = 'aaaa'
                     
-      const b = \\"----\\"
+      const b = "----"
 
       const c = \`aaaa\${foo}----\${bar}\`"
     `)

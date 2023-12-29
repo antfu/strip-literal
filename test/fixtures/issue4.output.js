@@ -1,4 +1,4 @@
-// mode: regex
+// mode: acorn
 import __variableDynamicImportRuntimeHelper from "                          ";
 const getTestData = async () => {
   const filename = "       ";

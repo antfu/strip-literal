@@ -1,5 +1,5 @@
 /* eslint-disable no-template-curly-in-string */
-import { expect, test } from 'vitest'
+import { expect, it } from 'vitest'
 import { createIsLiteralPositionAcorn } from '../src'
 
 function execute(code: string) {
@@ -17,7 +17,7 @@ function execute(code: string) {
   return result
 }
 
-test('works', () => {
+it('works', () => {
   expect(execute(`
 const a = 0
   `)).toMatchSnapshot()
@@ -46,7 +46,7 @@ const a = \`c\${b}\`
   `)).toMatchSnapshot()
 })
 
-test('template string nested', () => {
+it('template string nested', () => {
   expect(execute(
     '`aa${a + `a`}aa`',
   )).toMatchSnapshot()

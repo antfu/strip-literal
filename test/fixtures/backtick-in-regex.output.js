@@ -1,4 +1,4 @@
-// mode: regex
+// mode: acorn
               
 var r = / /;
 foobar(`${foo({ class: "   " })}`);
