@@ -22,7 +22,6 @@ export function stripLiteralDetailed(code: string, options?: StripLiteralOptions
   result: string
   resultJsTokens: {
     tokens: any[]
-    error?: any
   }
 } {
   const resultJsTokens = stripLiteralJsTokens(code, options)
