@@ -1,4 +1,5 @@
-import jsTokens, { type Token as JSToken } from 'js-tokens'
+import type { Token as JSToken } from 'js-tokens'
+import jsTokens from 'js-tokens'
 import type { StripLiteralOptions } from './types'
 
 export function stripLiteralJsTokens(code: string, options?: StripLiteralOptions) {
