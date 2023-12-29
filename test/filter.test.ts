@@ -4,7 +4,8 @@ import { executeWithVerify } from './utils'
 describe('filter', () => {
   it('should filter correctly', () => {
     const items: string[] = []
-    const result = executeWithVerify(`
+    const result = executeWithVerify(
+      `
 // comment1
 const a = 'aaaa'
 /* comment2 */
@@ -12,13 +13,14 @@ const b = "bbbb"
 
 const c = \`aaaa\${foo}dddd\${bar}\`
       `.trim(),
-    true,
-    {
-      filter: (s) => {
-        items.push(s)
-        return s !== 'aaaa'
+      true,
+      {
+        filter: (s) => {
+          items.push(s)
+          return s !== 'aaaa'
+        },
       },
-    })
+    )
 
     expect(result).toMatchInlineSnapshot(`
       "// mode: acorn

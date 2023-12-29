@@ -1,4 +1,4 @@
-import { describe, expect, test } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import { executeWithVerify } from './utils'
 
 describe('fixtures', () => {
@@ -6,7 +6,7 @@ describe('fixtures', () => {
   for (const [path, input] of Object.entries(cases)) {
     if (path.includes('.output.'))
       continue
-    test(path, async () => {
+    it(path, async () => {
       const raw = await input()
       const code = executeWithVerify(raw, !!path.match(/\.(ts|js)$/) && !raw.includes('skip-verify'))
       await expect(code)
