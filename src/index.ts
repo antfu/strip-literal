@@ -1,4 +1,3 @@
-import { _stripLiteralAcorn } from './acorn'
 import { _stripLiteralJsTokens } from './js-tokens'
 import { stripLiteralRegex } from './regex'
 import type { StripLiteralOptions } from './types'
@@ -22,24 +21,24 @@ export function stripLiteral(code: string, options?: StripLiteralOptions) {
  * Using Acorn's tokenizer first, and fallback to Regex if Acorn fails.
  */
 export function stripLiteralDetailed(code: string, options?: StripLiteralOptions): {
-  mode: 'acorn' | 'regex'
+  mode: 'js-tokens' | 'regex'
   result: string
-  acorn: {
+  resultJsTokens: {
     tokens: any[]
     error?: any
   }
 } {
-  const acorn = _stripLiteralJsTokens(code, options)
-  if (!acorn.error) {
+  const resultJsTokens = _stripLiteralJsTokens(code, options)
+  if (!resultJsTokens.error) {
     return {
-      mode: 'acorn',
-      result: acorn.result,
-      acorn,
+      mode: 'js-tokens',
+      result: resultJsTokens.result,
+      resultJsTokens,
     }
   }
   return {
     mode: 'regex',
-    result: stripLiteralRegex(acorn.result + code.slice(acorn.result.length), options),
-    acorn,
+    result: stripLiteralRegex(resultJsTokens.result + code.slice(resultJsTokens.result.length), options),
+    resultJsTokens,
   }
 }

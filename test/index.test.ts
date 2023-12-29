@@ -96,7 +96,7 @@ it('acorn syntax error', () => {
 foo(\`fooo \${foo({ class: "foo" })} bar\`)
   `, false))
     .toMatchInlineSnapshot(`
-      "// mode: acorn
+      "// mode: js-tokens
       foo(\`     \${foo({ class: "   " })}    \`)"
     `)
 })
@@ -104,43 +104,43 @@ foo(\`fooo \${foo({ class: "foo" })} bar\`)
 it('template string nested', () => {
   let str = '`aaaa`'
   expect(executeWithVerify(str)).toMatchInlineSnapshot(`
-    "// mode: acorn
+    "// mode: js-tokens
     \`    \`"
   `)
 
   str = '`aaaa` `aaaa`'
   expect(executeWithVerify(str)).toMatchInlineSnapshot(`
-    "// mode: acorn
+    "// mode: js-tokens
     \`    \` \`    \`"
   `)
 
   str = '`aa${a}aa`'
   expect(executeWithVerify(str)).toMatchInlineSnapshot(`
-    "// mode: acorn
+    "// mode: js-tokens
     \`  \${a}  \`"
   `)
 
   str = '`aa${a + `a` + a}aa`'
   expect(executeWithVerify(str)).toMatchInlineSnapshot(`
-    "// mode: acorn
+    "// mode: js-tokens
     \`  \${a + \` \` + a}  \`"
   `)
 
   str = '`aa${a + `a` + a}aa` `aa${a + `a` + a}aa`'
   expect(executeWithVerify(str)).toMatchInlineSnapshot(`
-    "// mode: acorn
+    "// mode: js-tokens
     \`  \${a + \` \` + a}  \` \`  \${a + \` \` + a}  \`"
   `)
 
   str = '`aa${a + `aaaa${c + (a = {b: 1}) + d}` + a}aa`'
   expect(executeWithVerify(str)).toMatchInlineSnapshot(`
-    "// mode: acorn
+    "// mode: js-tokens
     \`  \${a + \`    \${c + (a = {b: 1}) + d}\` + a}  \`"
   `)
 
   str = '`aa${a + `aaaa${c + (a = {b: 1}) + d}` + a}aa` `aa${a + `aaaa${c + (a = {b: 1}) + d}` + a}aa`'
   expect(executeWithVerify(str)).toMatchInlineSnapshot(`
-    "// mode: acorn
+    "// mode: js-tokens
     \`  \${a + \`    \${c + (a = {b: 1}) + d}\` + a}  \` \`  \${a + \`    \${c + (a = {b: 1}) + d}\` + a}  \`"
   `)
 })
@@ -152,7 +152,7 @@ it('backtick escape', () => {
     'this.error(`\\``)',
   ].join('\n')
   expect(executeWithVerify(str)).toMatchInlineSnapshot(`
-    "// mode: acorn
+    "// mode: js-tokens
     this.error(\`                                                          \`)
     this.error(\`  \`)
     this.error(\`  \`)"

@@ -23,7 +23,7 @@ const c = \`aaaa\${foo}dddd\${bar}\`
     )
 
     expect(result).toMatchInlineSnapshot(`
-      "// mode: acorn
+      "// mode: js-tokens
                  
       const a = 'aaaa'
                     
