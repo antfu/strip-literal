@@ -1,8 +1,7 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`escape character 1`] = `
-"// mode: acorn
-'    '
+"'    '
 "    "
 "       "
 "        "
@@ -17,9 +16,18 @@ exports[`escape character 1`] = `
 "         ""
 `;
 
+exports[`multiline string 1`] = `
+"const a = \`
+
+           
+
+       
+
+\`"
+`;
+
 exports[`regexp affect 1`] = `
-"// mode: acorn
-[
+"[
   / /,
   ' ',
   / /,
@@ -28,56 +36,48 @@ exports[`regexp affect 1`] = `
 `;
 
 exports[`strings comment nested 1`] = `
-"// mode: acorn
-                    
+"                    
 const a = "    "
                     "
 `;
 
 exports[`strings comment nested 2`] = `
-"// mode: acorn
-                    
+"                    
 const a = "    "
                     "
 `;
 
 exports[`strings comment nested 3`] = `
-"// mode: acorn
-                    
+"                    
 const a = "    "
                     "
 `;
 
 exports[`strings comment nested 4`] = `
-"// mode: acorn
-const a = "    "
+"const a = "    "
 console.log("       ")"
 `;
 
 exports[`strings comment nested 5`] = `
-"// mode: acorn
-const a = "    "
+"const a = "    "
 console.log("       ")
 const b = "    ""
 `;
 
 exports[`strings comment nested 6`] = `
-"// mode: acorn
-const a = "    "
+"const a = "    "
 console.log("       ")
 const b = "    ""
 `;
 
 exports[`strings comment nested 7`] = `
-"// mode: acorn
-const a = "    "
+"const a = "    "
 console.log("       ")
 const b = "    ""
 `;
 
 exports[`works 1`] = `
-"// mode: acorn
-           
+"           
 const a = '    '
               
 const b = "    "

@@ -8,7 +8,7 @@ describe('fixtures', () => {
       continue
     it(path, async () => {
       const raw = await input()
-      const code = executeWithVerify(raw, !!path.match(/\.(ts|js)$/) && !raw.includes('skip-verify'))
+      const code = executeWithVerify(raw)
       await expect(code)
         .toMatchFileSnapshot(path.replace(/\.(\w+)$/, '.output.$1'))
     })

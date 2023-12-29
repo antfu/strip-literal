@@ -1,4 +1,3 @@
-// mode: regex
 <script type="      ">
   const rawModules = import.meta.globEager('           ', {
     as: '   '
