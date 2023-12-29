@@ -4,6 +4,7 @@ import type { StripLiteralOptions } from './types'
 
 export { stripLiteralAcorn, createIsLiteralPositionAcorn } from './acorn'
 export { stripLiteralRegex } from './regex'
+export { _stripLiteralJsTokens } from './js-tokens'
 export * from './types'
 
 /**
