@@ -1,6 +1,6 @@
 {
   "name": "strip-literal",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "packageManager": "pnpm@8.15.5",
   "description": "Strip comments and string literals from JavaScript code",
   "author": "Anthony Fu <anthonyfu117@hotmail.com>",
