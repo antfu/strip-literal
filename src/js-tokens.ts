@@ -26,6 +26,11 @@ export function stripLiteralJsTokens(code: string, options?: StripLiteralOptions
     }
 
     if (token.type === 'StringLiteral') {
+      // js-token sees exotic vue prop value as an unclosed string literal
+      if (!token.closed) {
+        result += token.value
+        continue
+      }
       const body = token.value.slice(1, -1)
       if (filter(body)) {
         result += token.value[0] + FILL.repeat(body.length) + token.value[token.value.length - 1]
