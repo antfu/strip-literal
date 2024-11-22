@@ -43,7 +43,8 @@ it('regexp affect', () => {
   /'/,
   '1',
   /"/,
-  "1"
+  "1",
+  /a[/]/
 ]
   `)).toMatchSnapshot()
 })
