@@ -1,6 +1,7 @@
 <script type="module">
   const rawModules = import.meta.globEager('/dir/*.json', {
-    as: 'raw'
+    query: '?raw',
+    import: 'default' 
   })
   const globraw = {}
   Object.keys(rawModules).forEach((key) => {

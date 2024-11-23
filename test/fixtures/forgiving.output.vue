@@ -1,6 +1,7 @@
 <script type="      ">
   const rawModules = import.meta.globEager('           ', {
-    as: '   '
+    query: '    ',
+    import: '       ' 
   })
   const globraw = {}
   Object.keys(rawModules).forEach((key) => {
