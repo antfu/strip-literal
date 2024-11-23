@@ -13,11 +13,11 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Set node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 20.x
+          node-version: lts/*
 
       - name: Setup
         run: npm i -g @antfu/ni
@@ -31,11 +31,11 @@ jobs:
   typecheck:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Set node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 20.x
+          node-version: lts/*
 
       - name: Setup
         run: npm i -g @antfu/ni
@@ -49,7 +49,7 @@ jobs:
   test:
     strategy:
       matrix:
-        node: [16.x, 20.x]
+        node: [20.x, lts/*]
         os: [ubuntu-latest, windows-latest, macos-latest]
       fail-fast: false
 
@@ -60,9 +60,9 @@ jobs:
         run: |
           git config --global core.autocrlf false
           git config --global core.eol lf
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Set node ${{ matrix.node }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
 
