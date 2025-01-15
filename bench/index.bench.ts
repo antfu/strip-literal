@@ -1,4 +1,3 @@
-/* eslint-disable test/consistent-test-it */
 import { readFile } from 'node:fs/promises'
 import { bench, describe } from 'vitest'
 import { stripLiteralJsTokens } from '../src'

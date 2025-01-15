@@ -1,5 +1,5 @@
-import { stripLiteralJsTokens } from './js-tokens'
 import type { StripLiteralOptions } from './types'
+import { stripLiteralJsTokens } from './js-tokens'
 
 export { stripLiteralJsTokens } from './js-tokens'
 export * from './types'

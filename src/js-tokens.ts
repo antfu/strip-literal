@@ -1,6 +1,6 @@
 import type { Token as JSToken } from 'js-tokens'
-import jsTokens from 'js-tokens'
 import type { StripLiteralOptions } from './types'
+import jsTokens from 'js-tokens'
 
 export function stripLiteralJsTokens(code: string, options?: StripLiteralOptions) {
   const FILL = options?.fillChar ?? ' '

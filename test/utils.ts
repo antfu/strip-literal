@@ -1,5 +1,5 @@
-import { expect } from 'vitest'
 import type { StripLiteralOptions } from '../src'
+import { expect } from 'vitest'
 import { stripLiteralDetailed } from '../src'
 
 export function executeWithVerify(code: string, options?: StripLiteralOptions) {
