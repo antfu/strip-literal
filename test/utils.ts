@@ -1,15 +1,13 @@
 import type { StripLiteralOptions } from '../src'
 import { expect } from 'vitest'
-import { stripLiteralDetailed } from '../src'
+import { stripLiteral } from '../src'
 
 export function executeWithVerify(code: string, options?: StripLiteralOptions) {
   code = code.trim()
-  const result = stripLiteralDetailed(code, options)
-
   // if (verifyAst && result.acorn.error)
   //   console.error(result.acorn.error)
 
-  const stripped = result.result
+  const stripped = stripLiteral(code, options)
 
   if (!options?.fillChar) {
     for (let i = 0; i < stripped.length; i++) {
