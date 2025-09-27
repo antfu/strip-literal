@@ -2,7 +2,7 @@
   "name": "strip-literal",
   "type": "module",
   "version": "3.0.0",
-  "packageManager": "pnpm@9.15.4",
+  "packageManager": "pnpm@10.17.1",
   "description": "Strip comments and string literals from JavaScript code",
   "author": "Anthony Fu <anthonyfu117@hotmail.com>",
   "license": "MIT",
@@ -35,7 +35,7 @@
     "lint": "eslint .",
     "prepublishOnly": "nr build",
     "release": "bumpp && pnpm publish",
-    "start": "esmo src/index.ts",
+    "start": "tsx src/index.ts",
     "test": "vitest",
     "bench": "vitest bench",
     "typecheck": "tsc --noEmit"
@@ -44,19 +44,19 @@
     "js-tokens": "^9.0.1"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^3.14.0",
-    "@antfu/ni": "^23.2.0",
-    "@types/node": "^22.10.6",
-    "bumpp": "^9.10.1",
-    "eslint": "^9.18.0",
-    "esmo": "^4.8.0",
-    "pnpm": "^9.15.4",
+    "@antfu/eslint-config": "^5.4.1",
+    "@antfu/ni": "^26.0.1",
+    "@types/node": "^24.5.2",
+    "bumpp": "^10.2.3",
+    "eslint": "^9.36.0",
+    "pnpm": "^10.17.1",
     "rimraf": "^6.0.1",
-    "three": "^0.172.0",
-    "typescript": "^5.7.3",
-    "unbuild": "^3.3.1",
-    "vite": "^6.0.7",
-    "vitest": "^2.1.8",
-    "vue": "^3.5.13"
+    "three": "^0.180.0",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.2",
+    "unbuild": "^3.6.1",
+    "vite": "^7.1.7",
+    "vitest": "^3.2.4",
+    "vue": "^3.5.22"
   }
 }
