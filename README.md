@@ -9,6 +9,7 @@ Strip comments and string literals from JavaScript code. Powered by [`js-tokens`
 > [!NOTE]
 > Since v4.0.0, this package is ESM-only. Use v3.x if you need CommonJS.
 
+<!-- eslint-skip -->
 
 ```ts
 import { stripLiteral } from 'strip-literal'
