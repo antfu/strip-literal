@@ -13,8 +13,6 @@ packages:
   - examples/*
 
 catalogs:
-  deps:
-    js-tokens: ^10.0.0
   cli:
     '@antfu/eslint-config': ^9.2.0
     '@antfu/ni': ^30.3.0
@@ -26,6 +24,8 @@ catalogs:
     tsx: ^4.23.1
     typescript: ^5.9.3
     vite: ^8.1.5
+  deps:
+    js-tokens: ^10.0.0
   testing:
     three: ^0.185.1
     vitest: ^4.1.10
