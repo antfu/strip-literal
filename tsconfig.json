@@ -1,22 +1,26 @@
 {
   "compilerOptions": {
-    "target": "esnext",
-    "lib": ["esnext"],
-    "module": "esnext",
-    "moduleResolution": "bundler",
+    "target": "ESNext",
+    "lib": ["ESNext"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
     "resolveJsonModule": true,
     "types": [
+      "node",
       "vite/client"
     ],
     "strict": true,
     "strictNullChecks": true,
+    "noEmit": true,
     "esModuleInterop": true,
+    "verbatimModuleSyntax": true,
     "skipDefaultLibCheck": true,
     "skipLibCheck": true
   },
   "include": [
     "./src/**/*.*",
-    "./test/**/*.*"
+    "./test/**/*.*",
+    "./bench/**/*.*"
   ],
   "exclude": [
     "./test/fixtures/**/*"

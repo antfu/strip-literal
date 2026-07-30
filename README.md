@@ -6,6 +6,9 @@ Strip comments and string literals from JavaScript code. Powered by [`js-tokens`
 
 ## Usage
 
+> [!NOTE]
+> Since v4.0.0, this package is ESM-only. Use v3.x if you need CommonJS.
+
 <!-- eslint-disable no-template-curly-in-string -->
 
 ```ts
@@ -20,7 +23,7 @@ Comments, string literals will be replaced by spaces with the same length to kee
 
 <p align="center">
   <a href="https://cdn.jsdelivr.net/gh/antfu/static/sponsors.svg">
-    <img src='https://cdn.jsdelivr.net/gh/antfu/static/sponsors.svg'/>
+    <img src='https://cdn.jsdelivr.net/gh/antfu/static/sponsors.svg' alt="Sponsors"/>
   </a>
 </p>
 

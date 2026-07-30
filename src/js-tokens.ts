@@ -64,7 +64,7 @@ function stripLiteralFromToken(token: JSToken, fillChar: NonNullable<StripLitera
   return token.value
 }
 
-function optionsWithDefaults(options?: StripLiteralOptions) {
+function optionsWithDefaults(options?: StripLiteralOptions): Required<StripLiteralOptions> {
   return {
     fillChar: options?.fillChar ?? ' ',
     filter: options?.filter ?? (() => true),
@@ -74,7 +74,7 @@ function optionsWithDefaults(options?: StripLiteralOptions) {
 /**
  * Strip literal from code.
  */
-export function stripLiteral(code: string, options?: StripLiteralOptions) {
+export function stripLiteral(code: string, options?: StripLiteralOptions): string {
   let result = ''
 
   const _options = optionsWithDefaults(options)
@@ -90,7 +90,7 @@ export function stripLiteral(code: string, options?: StripLiteralOptions) {
 /**
  * Strip literal from code, return more detailed information.
  */
-export function stripLiteralDetailed(code: string, options?: StripLiteralOptions) {
+export function stripLiteralDetailed(code: string, options?: StripLiteralOptions): { result: string, tokens: JSToken[] } {
   let result = ''
   const tokens: JSToken[] = []
   const _options = optionsWithDefaults(options)
